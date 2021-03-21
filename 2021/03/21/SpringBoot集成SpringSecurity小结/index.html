@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>鸭子飞了</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="SpringBoot集成SpringSecurity小结SpringBoot集成SpringSecurity小结依赖1234&lt;dependency&gt;           &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;           &lt;artifactId&gt;spring-boot-starter-secu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="鸭子飞了">
+<meta property="og:url" content="https://129duckflew.github.io/2021/03/21/SpringBoot%E9%9B%86%E6%88%90SpringSecurity%E5%B0%8F%E7%BB%93/index.html">
+<meta property="og:site_name" content="鸭子飞了">
+<meta property="og:description" content="SpringBoot集成SpringSecurity小结SpringBoot集成SpringSecurity小结依赖1234&lt;dependency&gt;           &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;           &lt;artifactId&gt;spring-boot-starter-secu">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://image.duckflew.cn/img/blog_inner_image20210316201703.png">
+<meta property="article:published_time" content="2021-03-21T15:01:52.385Z">
+<meta property="article:modified_time" content="2021-03-21T15:21:28.531Z">
+<meta property="article:author" content="duckflew">
+<meta property="article:tag" content="duckflew">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.duckflew.cn/img/blog_inner_image20210316201703.png">
+  
+    <link rel="alternate" href="/atom.xml" title="鸭子飞了" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">鸭子飞了</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">人间凑数的日子里</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://129duckflew.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-SpringBoot集成SpringSecurity小结" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/21/SpringBoot%E9%9B%86%E6%88%90SpringSecurity%E5%B0%8F%E7%BB%93/" class="article-date">
+  <time class="dt-published" datetime="2021-03-21T15:01:52.385Z" itemprop="datePublished">2021-03-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="SpringBoot集成SpringSecurity小结"><a href="#SpringBoot集成SpringSecurity小结" class="headerlink" title="SpringBoot集成SpringSecurity小结"></a>SpringBoot集成SpringSecurity小结</h2><h1 id="SpringBoot集成SpringSecurity小结-1"><a href="#SpringBoot集成SpringSecurity小结-1" class="headerlink" title="SpringBoot集成SpringSecurity小结"></a>SpringBoot集成SpringSecurity小结</h1><h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-security<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><em>SpringSecurity最重要的两个  概念就是认证和授权  下面分开来写</em></p>
+<h3 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h3><p>认证主要解决的问题就是 识别出用户 解决“他是谁“ 的问题 在springSecurity的实现逻辑如下</p>
+<p>SpringSecurity有一个接口<strong>UserDetailService</strong>就是专门来实现用户认证的 当我们需要自定义自己的认证逻辑时  就需要继承这个接口 并且注入</p>
+<p>源码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDetailsService</span> </span>&#123;</span><br><span class="line">    <span class="function">UserDetails <span class="title">loadUserByUsername</span><span class="params">(String username)</span> <span class="keyword">throws</span> UsernameNotFoundException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>简单来说  登录的时候 系统会自动调用这个方法 LoadUserByUsername  这里主要是通过数据库  通过前端传来的username 来查询有无对应的用户  如果有的话就返回一个UserDetails对象   返回对象之后 会在内部进行认证(密码/盐/加密过密码等)    这个UserDetails也是个借口 spring默认提供的实现类是User  </p>
+<p>另外 密码需要加密 就需要用到一个密码解析器 接口是(PasswordEncoder)  这里官方推荐实现类是BCryptPasswordEncoder 需要先注入到Spring容器统一管理,数据库中存储的密码都是通过密码解析器加密的密文，</p>
+<blockquote>
+<p>注:PasswordEncoder是一个密码加密接口，而BCryptPasswordEncoder是Spring Security提供的一个实现方法，我们也可以自己实现PasswordEncoder。    不过Spring Security实现的BCryptPasswordEncoder已经足够强大，它对相同的密码进行加密后可以生成不同的结果</p>
+</blockquote>
+<p>具体的注入方法就是  新建一个配置类 注入即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> ...  </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> PasswordEncoder <span class="title">passwordEncoder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BCryptPasswordEncoder();</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有了密码解析器  loadUserByUsername的逻辑就可以完成了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDetailService</span> <span class="keyword">implements</span> <span class="title">UserDetailsService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PasswordEncoder passwordEncoder;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> UserDetails <span class="title">loadUserByUsername</span><span class="params">(String username)</span> <span class="keyword">throws</span> UsernameNotFoundException </span>&#123;</span><br><span class="line">        <span class="comment">// 模拟一个用户，实际项目中应为: 根据用户名查找数据库,如果没有记录则会返回null,有则返回UserDetails对象 简而言之 下面这两行我们应该是在数据库中查询  这里我假设user就是我查询出来的数据 当然了 数据库中的密码肯定是加密过的这里就手动加密一下来模拟数据库的过程</span></span><br><span class="line">        MyUser user = <span class="keyword">new</span> MyUser();</span><br><span class="line">        user.setUserName(username);</span><br><span class="line">        user.setPassword(<span class="keyword">this</span>.passwordEncoder.encode(<span class="string">&quot;123456&quot;</span>));</span><br><span class="line">        <span class="comment">// 输出加密后的密码</span></span><br><span class="line">        System.out.println(user.getPassword());</span><br><span class="line">		<span class="comment">// 返回对象之后 会在内部进行认证(密码/盐/加密过密码等)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> User(username, user.getPassword(), user.isEnabled(),</span><br><span class="line">                user.isAccountNonExpired(), user.isCredentialsNonExpired(),</span><br><span class="line">                user.isAccountNonLocked(), AuthorityUtils.commaSeparatedStringToAuthorityList(<span class="string">&quot;admin&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AuthorityUtils.commaSeparatedStringToAuthorityList(<span class="string">&quot;admin&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这一句是为了生成一个权限列表  理论上这个也是应该从数据库中查询出来的 但是这里还没有讲到授权的概念 所以就用一个工具类进行模拟了</p>
+<h3 id="自定义登录页面"><a href="#自定义登录页面" class="headerlink" title="自定义登录页面"></a>自定义登录页面</h3><h4 id="登录页面的表单"><a href="#登录页面的表单" class="headerlink" title="登录页面的表单"></a>登录页面的表单</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span> <span class="attr">action</span>=<span class="string">&quot;/login&quot;</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">label</span>&gt;</span>用户名<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">label</span>&gt;</span>密码<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;登录&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>登录页的必须这样写  也就是说name=username name=password 必须这样写  如果一定要修改自己的name 的参数名</p>
+<p>就需要在下面的formlogin()加上这几句</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http.formLogin()</span><br><span class="line">         .usernameParameter(<span class="string">&quot;username123&quot;</span>)</span><br><span class="line">         .passwordParameter(<span class="string">&quot;password123&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这时候表单的name=“…”  就需要对应起来了</p>
+<h4 id="自定义登录也面和授权都是通过继承一个配置类WebSecurityConfigurerAdapter来实现的"><a href="#自定义登录也面和授权都是通过继承一个配置类WebSecurityConfigurerAdapter来实现的" class="headerlink" title="自定义登录也面和授权都是通过继承一个配置类WebSecurityConfigurerAdapter来实现的"></a>自定义登录也面和授权都是通过继承一个配置类<code>WebSecurityConfigurerAdapter</code>来实现的</h4><p>重写下面的这个方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>自定义登录页的主要代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">http.formLogin()</span><br><span class="line">           .loginPage(<span class="string">&quot;/loginPage&quot;</span>)</span><br><span class="line">           .loginProcessingUrl(<span class="string">&quot;/login&quot;</span>)</span><br><span class="line">           .successForwardUrl(<span class="string">&quot;/login&quot;</span>)</span><br><span class="line">    		.failureForwardUrl(<span class="string">&quot;/loginFailPage&quot;</span>);</span><br><span class="line">       http.authorizeRequests().antMatchers(<span class="string">&quot;/loginPage&quot;</span>，<span class="string">&quot;/loginFailPage&quot;</span>).permitAll();</span><br><span class="line">       http.authorizeRequests().antMatchers(<span class="string">&quot;/&quot;</span>).authenticated();</span><br><span class="line"></span><br><span class="line">       <span class="comment">//简单的理解为防火墙    防止跨站请求伪造</span></span><br><span class="line">       http.csrf().disable();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>loginPage 是指定登录页 这里可以是一个请求也可以是一个页面  由于我在controller中写的/loginPage将其映射到了一个表单页面  所以这样写</li>
+<li>loginProcessingUrl 表示处理登录的请求的URL 也就是登录表单对应的action  这里这个参数必须要和 表单的action一致</li>
+<li>successForwardUrl 表示登录成功后要跳转到哪里  这里必须提交一个post请求  假设我们直接填一个页面的地址 也就是***.html之类的  就会报405ERROR request not allowed</li>
+<li>failureForwardUrl  登录失败后跳转的页面  同样 的也需要加入到下面的放行中</li>
+</ul>
+<p>指定了上面这些还不太够  还有一个问题  默认的情况下  我们的这些自定义的登录页面是被拦截的  我们需要先给登录的那些页面那些请求放行  于是就有下面的两行 登录成功实现跳转的那个请求<code>/login</code>不需要加入放行  因为login请求是在登录成功之后才发起的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http.authorizeRequests().antMatchers(<span class="string">&quot;/loginPage&quot;</span>，<span class="string">&quot;/loginFailPage&quot;</span>).permitAll();</span><br><span class="line">        http.authorizeRequests().antMatchers(<span class="string">&quot;/&quot;</span>).authenticated();</span><br></pre></td></tr></table></figure>
+
+<p>这里放行了两个请求/loginPage 和/login 下面一句是拦截/ 也就是直接访问主网站 会被请求授权 authenticated() 表示需要登录  也就是会自动跳转到登录页面</p>
+<p>当然了 有了上面的这些还是不行  SpringSecurity还有自带的防止跨站请求伪造 我们进行这些简单的配置还是无法达到演示效果  所以需要加上一句</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http.csrf().disable();</span><br></pre></td></tr></table></figure>
+
+<p>这个属于另一部分的内容 暂时先略过不说</p>
+<h4 id="自定义-登录成功（失败）处理器"><a href="#自定义-登录成功（失败）处理器" class="headerlink" title="自定义  登录成功（失败）处理器"></a>自定义  登录成功（失败）处理器</h4><p>实际应用中  都是前后端分离的  页面跳转都是前端控制的  所以需要实现自己的处理器   这里实现成功的处理器  通过实现接口来实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 自定义登录成功处理器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAuthenticationSuccessHandler</span> <span class="keyword">implements</span> <span class="title">AuthenticationSuccessHandler</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String url;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyAuthenticationSuccessHandler</span><span class="params">(String url)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.url = url;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAuthenticationSuccess</span><span class="params">(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication)</span> <span class="keyword">throws</span> IOException, ServletException</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        response.sendRedirect(url);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAuthenticationSuccess</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication)</span> <span class="keyword">throws</span> IOException, ServletException</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        httpServletResponse.sendRedirect(url);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这里是简单实现   把成功之后的页面重定向到百度的主页</p>
+<p>登录失败的处理器也是同理的</p>
+<h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><p>授权和拦截器很类似  但是比拦截器的方法多一点</p>
+<p>SpringSecurity的授权是有先后顺序的  不能设置AnyRequests在antMatchers后面  总而言之也就是笼统的授权 放在后面   特定的放在前面 一般的  anyRequest都是放在最后面 </p>
+<ul>
+<li><p>antMatcher()</p>
+<p>方法定义如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> C <span class="title">antMatchers</span><span class="params">(String... antPatterns)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>参数是不定项参数 每一个参数是一个ant表达式 用于匹配URL规则  </p>
+<p>规则如下</p>
+<ul>
+<li><code>?</code> ：匹配一个字符</li>
+<li><code>*</code>：匹配0个或多个字符</li>
+<li><code>**</code> 匹配0个或者多个目录</li>
+</ul>
+<p>在实际项目中 经常需要放行所有静态资源 下面演示放行js文件夹内所有的脚本文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.antMatchers(<span class="string">&quot;/js/**&quot;</span>,<span class="string">&quot;/css/**&quot;</span>).permitAll()</span><br></pre></td></tr></table></figure>
+
+<p>还有一种方式是只要是js文件就都放行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.antMatchers(<span class="string">&quot;/**/*.js&quot;</span>).permitAll()</span><br></pre></td></tr></table></figure></li>
+<li><p>regexMatchers()</p>
+<p>正则表达式的匹配 用法和上面的一样  只是ant表达式换成了正则表达式就行了  另外   antMatchers() ,regexMatchers()  还可以有一个入参  来控制 对应的请求的方式的放行方式 例如只放行/demo 的post请求  那就是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.regexMatchers(HttpMethor.POST,<span class="string">&quot;/demo&quot;</span>).permitAll</span><br></pre></td></tr></table></figure></li>
+<li><p>mvcMatchers()</p>
+<p>这个方法可以指定servletPath  例如项目的servletPath（也就是整个项目访问的前缀) 是xxxx 我要放行/demo</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvcMatchers(<span class="string">&quot;/demo&quot;</span>).servletPath(<span class="string">&quot;/xxxx&quot;</span>).permitAll();</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.duckflew.cn/img/blog_inner_image20210316201703.png" alt="image-20210316201655653"></p>
+</li>
+</ul>
+<p>需要注意的  角色必须是大写ROLE_开头   就是在UserDetails里面必须加 ROLE_  但是在hasRole()  这一系列的方法中 不需要加ROLE前缀</p>
+<p>以上都是基于权限或者是基于角色的授权    还有一种基于IP地址的,也就是……………….</p>
+<h5 id="注解实现授权"><a href="#注解实现授权" class="headerlink" title="注解实现授权"></a>注解实现授权</h5><p>除了使用配置类外  还可以使用注解   步骤如下</p>
+<p>首先开启注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableGlobalMethodSecurity(securedEnabled = true ,prePostEnabled = true)</span></span><br></pre></td></tr></table></figure>
+
+<p>放在启动类上</p>
+<p>securedEnabled = true表示开启@Seured注解  </p>
+<p>prePostEnabled = true 表示开启两个</p>
+<ul>
+<li><p>@PreAuthorize  </p>
+<p>表示方法执行之前判断权限 参数填入access字符串就可以了</p>
+<p>exp:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PreAuthorize(&quot;hasRole(&#x27;ROLE_DB&#x27;)&quot;)</span></span><br></pre></td></tr></table></figure></li>
+<li><p>@PostAuthorize</p>
+<p>表示方法执行之后判断权限 极少用</p>
+</li>
+</ul>
+<p>这些注解加在Controller对应的方法上控制权限</p>
+<p><code>tips</code>: <code>@Secured较老 不建议使用 可读性差</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://129duckflew.github.io/2021/03/21/SpringBoot%E9%9B%86%E6%88%90SpringSecurity%E5%B0%8F%E7%BB%93/" data-id="ckmjbdb930005m4ve59tv7r3z" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/03/21/LeetCode%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95---%E9%93%BE%E8%A1%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/03/21/SpringBoot%E9%9B%86%E6%88%90SpringSecurity%E5%B0%8F%E7%BB%93/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/21/LeetCode%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95---%E9%93%BE%E8%A1%A8/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/21/leetcode%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/21/LeetCode%20%E7%AC%94%E8%AE%B0--%E5%88%86%E6%B2%BB%E6%B3%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/21/LeetCode%20%E7%AC%94%E8%AE%B0----DP%E9%97%AE%E9%A2%98/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 duckflew<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

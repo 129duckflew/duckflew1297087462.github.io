@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>鸭子飞了</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="哈夫曼树的建立以及求WPL 以及哈夫曼编码一、定义一些定义：  节点之间的路径长度：在树中从一个结点到另一个结点所经历的分支，构成了这两个结点间的路径上的经过的分支数称为它的路径长度 树的路径长度：从树的根节点到树中每一结点的路径长度之和。在结点数目相同的二叉树中，完全二叉树的路径长度最短。 结点的权：在一些应用中，赋予树中结点的一个有某种意义的实数。 结点的带权路径长度：结点到树根之间的路径长">
+<meta property="og:type" content="article">
+<meta property="og:title" content="鸭子飞了">
+<meta property="og:url" content="https://129duckflew.github.io/2021/03/21/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%9A%84%E5%BB%BA%E7%AB%8B%E4%BB%A5%E5%8F%8A%E6%B1%82WPL%20%E4%BB%A5%E5%8F%8A%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81/index.html">
+<meta property="og:site_name" content="鸭子飞了">
+<meta property="og:description" content="哈夫曼树的建立以及求WPL 以及哈夫曼编码一、定义一些定义：  节点之间的路径长度：在树中从一个结点到另一个结点所经历的分支，构成了这两个结点间的路径上的经过的分支数称为它的路径长度 树的路径长度：从树的根节点到树中每一结点的路径长度之和。在结点数目相同的二叉树中，完全二叉树的路径长度最短。 结点的权：在一些应用中，赋予树中结点的一个有某种意义的实数。 结点的带权路径长度：结点到树根之间的路径长">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://image.duckflew.cn/img/blog_inner_image20201120014930.jpeg">
+<meta property="og:image" content="https://image.duckflew.cn/img/blog_inner_image20201120015039.jpeg">
+<meta property="og:image" content="https://image.duckflew.cn/img/blog_inner_image20201120015229.jpeg">
+<meta property="og:image" content="https://image.duckflew.cn/img/blog_inner_image20201120015800.jpeg">
+<meta property="article:published_time" content="2021-03-21T15:01:52.154Z">
+<meta property="article:modified_time" content="2021-03-21T15:21:28.534Z">
+<meta property="article:author" content="duckflew">
+<meta property="article:tag" content="duckflew">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.duckflew.cn/img/blog_inner_image20201120014930.jpeg">
+  
+    <link rel="alternate" href="/atom.xml" title="鸭子飞了" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">鸭子飞了</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">人间凑数的日子里</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://129duckflew.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-哈夫曼树的建立以及求WPL 以及哈夫曼编码" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/21/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%9A%84%E5%BB%BA%E7%AB%8B%E4%BB%A5%E5%8F%8A%E6%B1%82WPL%20%E4%BB%A5%E5%8F%8A%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81/" class="article-date">
+  <time class="dt-published" datetime="2021-03-21T15:01:52.154Z" itemprop="datePublished">2021-03-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="哈夫曼树的建立以及求WPL-以及哈夫曼编码"><a href="#哈夫曼树的建立以及求WPL-以及哈夫曼编码" class="headerlink" title="哈夫曼树的建立以及求WPL 以及哈夫曼编码"></a>哈夫曼树的建立以及求WPL 以及哈夫曼编码</h2><h2 id="一、定义"><a href="#一、定义" class="headerlink" title="一、定义"></a>一、定义</h2><p>一些定义：</p>
+<ul>
+<li>节点之间的路径长度：在树中从一个结点到另一个结点所经历的分支，构成了这两个结点间的路径上的经过的分支数称为它的路径长度</li>
+<li>树的路径长度：从树的根节点到树中每一结点的路径长度之和。在结点数目相同的二叉树中，完全二叉树的路径长度最短。</li>
+<li><strong>结点的权</strong>：在一些应用中，赋予树中结点的一个有某种意义的实数。</li>
+<li><strong>结点的带权路径长度</strong>：结点到树根之间的路径长度与该结点上权的乘积。</li>
+<li><strong>树的带权路径长度</strong>(Weighted Path Length of Tree：WPL)：定义为树中所有叶子结点的带权路径长度之和</li>
+</ul>
+<p>如下面的二叉树，叶子节点的权值分别为5、6、2、4、7，的带权路径长度计算：</p>
+<p><img src="https://image.duckflew.cn/img/blog_inner_image20201120014930.jpeg" alt="点击查看源网页"></p>
+<ul>
+<li>最优二叉树：从已给出的目标带权结点(单独的结点) 经过一种方式的组合形成一棵树.使树的权值最小.。最优二叉树是带权路径长度最短的二叉树。根据结点的个数，权值的不同，最优二叉树的形状也各不相同。它们的共同点是：<strong>带权值的结点都是叶子结点。权值越小的结点，其到根结点的路径越长。</strong></li>
+</ul>
+<p>如，给定4个叶子结点a，b，c和d，分别带权7，5，2和4。构造如下图所示的三棵二叉树(还有许多棵)，</p>
+<p><img src="https://image.duckflew.cn/img/blog_inner_image20201120015039.jpeg" alt="这里写图片描述"></p>
+<p>它们的带权路径长度分别为：</p>
+<pre><code>(a)WPL=7*2+5*2+2*2+4*2=36
+(b)WPL=7*3+5*3+2*1+4*2=46
+(c)WPL=7*1+5*2+2*3+4*3=35
+</code></pre>
+<p>其中(c)树的WPL最小，可以验证，它就是哈夫曼树。</p>
+<p><strong>注意：</strong><br>  ① 叶子上的权值均相同时，完全二叉树一定是最优二叉树，否则完全二叉树不一定是最优二叉树。<br>  ② 最优二叉树中，权越大的叶子离根越近。<br>  ③ 最优二叉树的形态不唯一，WPL最小。</p>
+<h2 id="二、构造哈夫曼树"><a href="#二、构造哈夫曼树" class="headerlink" title="二、构造哈夫曼树"></a>二、构造哈夫曼树</h2><p>  1） 根据给定的n个权值｛w1， w2， w3， w4……wn｝构成n棵二叉树的森林 F=｛T1 ， T2 ， T3…..Tn｝，其中每棵二叉树只有一个权值为wi 的根节点，其左右子树都为空；</p>
+<p> 2） 在森林F中选择两棵根节点的权值最小的二叉树，作为一棵新的二叉树的左右子树，且令新的二叉树的根节点的权值为其左右子树的权值和；</p>
+<p> 3）从F中删除被选中的那两棵子树，并且把构成的新的二叉树加到F森林中；</p>
+<p> 4）重复2 ，3 操作，直到森林只含有一棵二叉树为止，此时得到的这棵二叉树就是哈夫曼树。</p>
+<p>构造过程如下图：</p>
+<p><img src="https://image.duckflew.cn/img/blog_inner_image20201120015229.jpeg" alt="这里写图片描述"></p>
+<h2 id="三、哈夫曼编码"><a href="#三、哈夫曼编码" class="headerlink" title="三、哈夫曼编码"></a>三、哈夫曼编码</h2><p>  从根节点出发，每个父节点都会有分支，现在给左右分支各赋予一个数值，做分支表示‘0’，有分支表示‘1’。当从根节点一直数到叶子结点过程中所经历的左右分支以‘0’、’1’表示时，每个叶子结点会形成一个特定的编码，这个就是哈夫曼编码，如上图中四个叶子结点的编码分别为：<br>A：101<br>B：11<br>C：100<br>D：0<br><img src="https://image.duckflew.cn/img/blog_inner_image20201120015800.jpeg" alt="这里写图片描述"></p>
+<p>  在电文传输中，需要将电文中出现的每个字符进行二进制编码。在设计编码时需要遵守两个原则：<br>（1）发送方传输的二进制编码，到接收方解码后必须具有唯一性，即解码结果与发送方发送的电文完全一样；<br>（2）发送的二进制编码尽可能地短。下面我们介绍两种编码的方式。</p>
+<h5 id="1-等长编码"><a href="#1-等长编码" class="headerlink" title="1 等长编码"></a>1 等长编码</h5><p>  这种编码方式的特点是每个字符的编码长度相同（编码长度就是每个编码所含的二进制位数）。假设字符集只含有4个字符A，B，C，D，用二进制两位表示的编码分别为00，01，10，11。若现在有一段电文为：ABACCDA，则应发送二进制序列：00010010101100，总长度为14位。当接收方接收到这段电文后，将按两位一段进行译码。这种编码的特点是译码简单且具有唯一性，但编码长度并不是最短的。</p>
+<h5 id="2-不等长编码"><a href="#2-不等长编码" class="headerlink" title="2.不等长编码"></a>2.不等长编码</h5><p>  在传送电文时，为了使其二进制位数尽可能地少，可以将每个字符的编码设计为不等长的，使用频度较高的字符分配一个相对比较短的编码，使用频度较低的字符分配一个比较长的编码。例如，可以为A，B，C，D四个字符分别分配0，00，1，01，并可将上述电文用二进制序列：000011010发送，其长度只有9个二进制位，但随之带来了一个问题，接收方接到这段电文后无法进行译码，因为无法断定前面4个0是4个A，1个B、2个A，还是2个B，即译码不唯一，因此这种编码方法不可使用。<br>  因此，为了设计长短不等的编码，以便减少电文的总长，还必须考虑编码的唯一性，即在建立不等长编码时必须使任何一个字符的编码都不是另一个字符的前缀。<br>  这个问题可以采用哈夫曼编码解决。</p>
+<p>哈夫曼的WPL就是非叶子节点的权值之和</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HNode</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 哈夫曼树节点类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> String data=<span class="string">&quot;&quot;</span>;<span class="comment">//节点的数据</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> count;<span class="comment">//节点的权值</span></span><br><span class="line">    <span class="keyword">public</span> HNode leftChild;</span><br><span class="line">    <span class="keyword">public</span> HNode rightChild;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HuffmanTree</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> HNode root;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> wpl;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> HNode <span class="title">createTree</span><span class="params">(List&lt;HNode&gt; nodes)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        wpl=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (nodes.size()&gt;<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            quickSort(nodes);</span><br><span class="line">            HNode left = nodes.get(<span class="number">0</span>);</span><br><span class="line">            HNode right= nodes.get(<span class="number">1</span>);</span><br><span class="line">            HNode newNodeRoot = <span class="keyword">new</span> HNode();</span><br><span class="line">            newNodeRoot.setLeftChild(left);</span><br><span class="line">            newNodeRoot.setRightChild(right);</span><br><span class="line">            newNodeRoot.setCount(left.count+right.count);</span><br><span class="line">            nodes.remove(<span class="number">0</span>);</span><br><span class="line">            nodes.remove(<span class="number">0</span>);</span><br><span class="line">            nodes.add(<span class="number">0</span>,newNodeRoot);</span><br><span class="line">        &#125;</span><br><span class="line">        root=nodes.get(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> nodes.get(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(List&lt;HNode&gt; nodes)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        nodes.sort(Comparator.comparingInt(o -&gt; o.count));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preOrder</span><span class="params">(HNode root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root==<span class="keyword">null</span>)<span class="keyword">return</span> ;</span><br><span class="line">        System.out.println(<span class="string">&quot;data=&quot;</span>+root.data+<span class="string">&quot;  权值&quot;</span>+root.count);</span><br><span class="line">        preOrder(root.leftChild);</span><br><span class="line">        preOrder(root.rightChild);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">levelOrder</span><span class="params">(HNode root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root==<span class="keyword">null</span>)<span class="keyword">return</span> ;</span><br><span class="line">        Queue&lt;HNode&gt; queue=<span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">        queue.add(root);</span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty())</span><br><span class="line">        &#123;</span><br><span class="line">            HNode top=queue.poll();</span><br><span class="line">            System.out.println(<span class="string">&quot;data=&quot;</span>+top.data+<span class="string">&quot;  权值&quot;</span>+top.count);</span><br><span class="line">            HNode left = top.leftChild;</span><br><span class="line">            HNode right = top.rightChild;</span><br><span class="line">            <span class="keyword">if</span> (left!=<span class="keyword">null</span>)queue.add(left);</span><br><span class="line">            <span class="keyword">if</span> (right!=<span class="keyword">null</span>)queue.add(right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getWpl</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        calculateWpl(root);</span><br><span class="line">        <span class="keyword">return</span> wpl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span>  <span class="title">calculateWpl</span><span class="params">(HNode root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root==<span class="keyword">null</span>)<span class="keyword">return</span> ;</span><br><span class="line">        <span class="keyword">if</span> (root.leftChild!=<span class="keyword">null</span>||root.rightChild!=<span class="keyword">null</span>)wpl+=root.count;</span><br><span class="line">        calculateWpl(root.leftChild);</span><br><span class="line">        calculateWpl(root.rightChild);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Random random = <span class="keyword">new</span> Random();</span><br><span class="line">        List&lt;HNode&gt; nodes=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            HNode hNode = <span class="keyword">new</span> HNode();</span><br><span class="line">            hNode.setCount(random.nextInt(<span class="number">10</span>));</span><br><span class="line">            hNode.setData((<span class="keyword">char</span>)(random.nextInt(<span class="number">26</span>)+<span class="string">&#x27;a&#x27;</span>)+<span class="string">&quot;&quot;</span>);</span><br><span class="line">            nodes.add(hNode);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (HNode node : nodes)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;  data=&quot;</span>+node.data+<span class="string">&quot;,count=&quot;</span>+node.count);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">        HuffmanTree huffmanTree = <span class="keyword">new</span> HuffmanTree();</span><br><span class="line">        HNode root = huffmanTree.createTree(nodes);</span><br><span class="line">        huffmanTree.levelOrder(root);</span><br><span class="line">        System.out.println(<span class="string">&quot;带权路径长度之和wpl=&quot;</span>+huffmanTree.getWpl());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>测试结果</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">data=j,count=2  data=g,count=9  data=c,count=2  data=q,count=5  data=g,count=4</span><br><span class="line">data=  权值22</span><br><span class="line">data=g  权值9</span><br><span class="line">data=  权值13</span><br><span class="line">data=q  权值5</span><br><span class="line">data=  权值8</span><br><span class="line">data=  权值4</span><br><span class="line">data=g  权值4</span><br><span class="line">data=j  权值2</span><br><span class="line">data=c  权值2</span><br><span class="line">带权路径长度之和wpl=47</span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+<p>生成哈夫曼编码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildHuffmanCode</span><span class="params">(HNode root)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (root==<span class="keyword">null</span>)<span class="keyword">return</span> ;</span><br><span class="line">       <span class="keyword">if</span> (root.leftChild!=<span class="keyword">null</span>)</span><br><span class="line">       &#123;</span><br><span class="line">           root.leftChild.code=root.code+<span class="string">&quot;0&quot;</span>;</span><br><span class="line">           buildHuffmanCode(root.leftChild);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> (root.rightChild!=<span class="keyword">null</span>)</span><br><span class="line">       &#123;</span><br><span class="line">           root.rightChild.code=root.code+<span class="string">&quot;1&quot;</span>;</span><br><span class="line">           buildHuffmanCode(root.rightChild);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>然后在哈夫曼树构建成功后调用此函数<br>得到的编码如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data=j  编码=0  权值8</span><br><span class="line">data=b  编码=10  权值5</span><br><span class="line">data=n  编码=111  权值4</span><br><span class="line">data=v  编码=1100  权值1</span><br><span class="line">data=q  编码=1101  权值3</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://129duckflew.github.io/2021/03/21/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%9A%84%E5%BB%BA%E7%AB%8B%E4%BB%A5%E5%8F%8A%E6%B1%82WPL%20%E4%BB%A5%E5%8F%8A%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81/" data-id="ckmjbdb960009m4ve963hg939" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/03/21/%E5%87%A0%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/03/21/%E5%B9%BF%E4%B9%89%E8%A1%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/03/21/SpringBoot%E9%9B%86%E6%88%90SpringSecurity%E5%B0%8F%E7%BB%93/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/21/LeetCode%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95---%E9%93%BE%E8%A1%A8/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/21/leetcode%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/21/LeetCode%20%E7%AC%94%E8%AE%B0--%E5%88%86%E6%B2%BB%E6%B3%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/21/LeetCode%20%E7%AC%94%E8%AE%B0----DP%E9%97%AE%E9%A2%98/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 duckflew<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

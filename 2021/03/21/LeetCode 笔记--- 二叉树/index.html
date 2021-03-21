@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>鸭子飞了</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="LeetCode 笔记— 二叉树LeetCode 笔记— 二叉树501.求BST的众数这个题不需要另外定义一个map  会造成空间的浪费 因为根据BST的特性  中序遍历  相同的元素都是排在一起的 所以只需要维护一个maxNum curNum cur遍历到不同的元素  就刷新cur curnum复位为1  并且和Maxnum比较  如果相同  就加入到结果数组  如果不相同  就把结果数组清空">
+<meta property="og:type" content="article">
+<meta property="og:title" content="鸭子飞了">
+<meta property="og:url" content="https://129duckflew.github.io/2021/03/21/LeetCode%20%E7%AC%94%E8%AE%B0---%20%E4%BA%8C%E5%8F%89%E6%A0%91/index.html">
+<meta property="og:site_name" content="鸭子飞了">
+<meta property="og:description" content="LeetCode 笔记— 二叉树LeetCode 笔记— 二叉树501.求BST的众数这个题不需要另外定义一个map  会造成空间的浪费 因为根据BST的特性  中序遍历  相同的元素都是排在一起的 所以只需要维护一个maxNum curNum cur遍历到不同的元素  就刷新cur curnum复位为1  并且和Maxnum比较  如果相同  就加入到结果数组  如果不相同  就把结果数组清空">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2020/09/09/trim2.jpg">
+<meta property="article:published_time" content="2021-03-21T15:01:52.292Z">
+<meta property="article:modified_time" content="2021-03-21T15:21:28.519Z">
+<meta property="article:author" content="duckflew">
+<meta property="article:tag" content="duckflew">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://assets.leetcode.com/uploads/2020/09/09/trim2.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="鸭子飞了" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">鸭子飞了</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">人间凑数的日子里</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://129duckflew.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-LeetCode 笔记--- 二叉树" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/21/LeetCode%20%E7%AC%94%E8%AE%B0---%20%E4%BA%8C%E5%8F%89%E6%A0%91/" class="article-date">
+  <time class="dt-published" datetime="2021-03-21T15:01:52.292Z" itemprop="datePublished">2021-03-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="LeetCode-笔记—-二叉树"><a href="#LeetCode-笔记—-二叉树" class="headerlink" title="LeetCode 笔记— 二叉树"></a>LeetCode 笔记— 二叉树</h2><h1 id="LeetCode-笔记—-二叉树-1"><a href="#LeetCode-笔记—-二叉树-1" class="headerlink" title="LeetCode 笔记— 二叉树"></a>LeetCode 笔记— 二叉树</h1><h3 id="501-求BST的众数"><a href="#501-求BST的众数" class="headerlink" title="501.求BST的众数"></a>501.求BST的众数</h3><p>这个题不需要另外定义一个map  会造成空间的浪费 因为根据BST的特性  中序遍历  相同的元素都是排在一起的 所以只需要维护一个maxNum curNum cur<br>遍历到不同的元素  就刷新cur curnum复位为1  并且和Maxnum比较  如果相同  就加入到结果数组  如果不相同  就把结果数组清空  再加入</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> cur;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> curNum;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> maxNum=-<span class="number">1</span>;</span><br><span class="line">   <span class="keyword">private</span> List&lt;Integer&gt;res;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">int</span>[] findMode(TreeNode root) &#123;</span><br><span class="line">       res=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">       dfs(root);</span><br><span class="line">       <span class="keyword">int</span> []ans=<span class="keyword">new</span> <span class="keyword">int</span>[res.size()];</span><br><span class="line">       <span class="keyword">if</span> (res.size()&gt;<span class="number">0</span>)</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ans.length; i++)</span><br><span class="line">       &#123;</span><br><span class="line">           ans[i]=res.get(i);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> ans;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode root)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (root==<span class="keyword">null</span>)<span class="keyword">return</span> ;</span><br><span class="line">       dfs(root.left);</span><br><span class="line">       update(root.val);</span><br><span class="line">       dfs(root.right);</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> val)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (val!=cur)</span><br><span class="line">       &#123;</span><br><span class="line">           cur=val;</span><br><span class="line">           curNum=<span class="number">1</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">else</span></span><br><span class="line">       &#123;</span><br><span class="line">           curNum++;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> (curNum&gt;maxNum)</span><br><span class="line">       &#123;</span><br><span class="line">           res.clear();</span><br><span class="line">           res.add(cur);</span><br><span class="line">           maxNum=curNum;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">else</span> <span class="keyword">if</span> (curNum&lt;maxNum)</span><br><span class="line">       &#123;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">else</span></span><br><span class="line">       &#123;</span><br><span class="line">           res.add(cur);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="109-有序链表转化为BST"><a href="#109-有序链表转化为BST" class="headerlink" title="109.有序链表转化为BST"></a>109.有序链表转化为BST</h3><p>给定的有序链表： [-10, -3, 0, 5, 9],<br>一个可能的答案是：[0, -3, 9, -10, null, 5], 它可以表示下面这个高度平衡二叉搜索树：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">     0</span><br><span class="line">    &#x2F; \</span><br><span class="line">  -3   9</span><br><span class="line">  &#x2F;   &#x2F;</span><br><span class="line">-10  5</span><br></pre></td></tr></table></figure>
+
+<p>快慢指针加分治法<br>首先求出链表的中间节点作为树的根节点  然后以Mid节点为界 对左右两个链表采取同样的方法 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span>   TreeNode <span class="title">sortedListToBST</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> buildTree(head,<span class="keyword">null</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span>  TreeNode <span class="title">buildTree</span><span class="params">(ListNode left,ListNode right)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (left==right)<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">       ListNode mid = findMidListNode(left, right);</span><br><span class="line">       TreeNode newNode = <span class="keyword">new</span> TreeNode(mid.val);</span><br><span class="line">       newNode.left=buildTree(left,mid);</span><br><span class="line">       newNode.right=buildTree(mid.next,right);</span><br><span class="line">       <span class="keyword">return</span> newNode;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span>  ListNode <span class="title">findMidListNode</span><span class="params">(ListNode left,ListNode right)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (left==right)<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">       ListNode slow=left;</span><br><span class="line">       ListNode fast=left;</span><br><span class="line">       <span class="keyword">while</span> (fast!=right&amp;&amp;fast.next!=right)</span><br><span class="line">       &#123;</span><br><span class="line">           slow=slow.next;</span><br><span class="line">           fast=fast.next;</span><br><span class="line">           fast=fast.next;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> slow;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="538-把二叉搜索树转化为累加树"><a href="#538-把二叉搜索树转化为累加树" class="headerlink" title="538.把二叉搜索树转化为累加树"></a>538.把二叉搜索树转化为累加树</h3><p>要把一个BST转化为每个节点值变成大于等于原节点元素的树  只需要倒序遍历 维护一个sum变量  到哪个点了就root.val=root.val+sum<br>tips 这里的倒序不是说的后序遍历 而是说 逆中序遍历 即为先遍历right子树</p>
+<h3 id="230-求二叉搜索树的第K个最小的元素"><a href="#230-求二叉搜索树的第K个最小的元素" class="headerlink" title="230.求二叉搜索树的第K个最小的元素"></a>230.求二叉搜索树的第K个最小的元素</h3><p>这个题就是中序遍历 然后用一个hasReadNum作为标志表示当前你已经遍历到第几个元素了  如果是第k个  返回就是了  如果大于 直接返回 相当于剪枝</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> hasReadNum;</span><br><span class="line">   <span class="keyword">int</span> res;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">kthSmallest</span><span class="params">(TreeNode root, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        res=<span class="number">0</span>;</span><br><span class="line">       hasReadNum=<span class="number">0</span>;</span><br><span class="line">       dfs(root,k);</span><br><span class="line">       <span class="keyword">return</span> res;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode root,<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (root==<span class="keyword">null</span>)<span class="keyword">return</span> ;</span><br><span class="line">       dfs(root.left,k);</span><br><span class="line">       hasReadNum++;</span><br><span class="line">       <span class="keyword">if</span> (hasReadNum==k)</span><br><span class="line">       &#123;</span><br><span class="line">           res=root.val;</span><br><span class="line">           <span class="keyword">return</span> ;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">else</span> <span class="keyword">if</span> (hasReadNum&gt;k)</span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">return</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       dfs(root.right,k);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="669-修剪二叉搜索树"><a href="#669-修剪二叉搜索树" class="headerlink" title="669.修剪二叉搜索树"></a>669.修剪二叉搜索树</h3><blockquote>
+<p>给你二叉搜索树的根节点 root ，同时给定最小边界low 和最大边界 high。通过修剪二叉搜索树，使得所有节点的值在[low, high]中。修剪树不应该改变保留在树中的元素的相对结构（即，如果没有被移除，原有的父代子代关系都应当保留）。 可以证明，存在唯一的答案。<br>所以结果应当返回修剪好的二叉搜索树的新的根节点。注意，根节点可能会根据给定的边界发生改变。<br><img src="https://assets.leetcode.com/uploads/2020/09/09/trim2.jpg"><br>思路: 假设trimBST的结果是理想的 判断一下我当前节点 的值 如果root.val&lt;l说明只需要考虑右子树  左子树已经不符合了  这是搜索树的性质  同理 如果root.val&gt;R 那只需要判断左子树</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> TreeNode <span class="title">trimBST</span><span class="params">(TreeNode root, <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (root==<span class="keyword">null</span>)<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">       <span class="keyword">if</span> (root.val&gt;high)<span class="keyword">return</span> trimBST(root.left,low,high);</span><br><span class="line">       <span class="keyword">if</span> (root.val&lt;low)<span class="keyword">return</span> trimBST(root.right,low,high);</span><br><span class="line">       root.left=trimBST(root.left,low,high);</span><br><span class="line">       root.right=trimBST(root.right,low,high);</span><br><span class="line">       <span class="keyword">return</span> root;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="637-二叉树的层平均值"><a href="#637-二叉树的层平均值" class="headerlink" title="637.二叉树的层平均值"></a>637.二叉树的层平均值</h3><p>BFS遍历每一层 需要注意的是 每一次Poll元素之前先记录一下此时的queue有多少个元素 这个个数就是本层有多少个元素 sum就+  这么多次  然后sum/num 就是本层平均值了  在循环内部其实还是正常的BFS该添加元素就元素 因为队列的特性是可以记录的每一层的  513题的找最后一层最左边的元素也是这个方法  判断i==0 也就是每一层的第一个元素的时候 就更新一次答案就行了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span>  List&lt;Double&gt; <span class="title">averageOfLevels</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (root==<span class="keyword">null</span>)<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">       List&lt;Double&gt;averages=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">       Queue&lt;TreeNode&gt;queue=<span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">       queue.add(root);</span><br><span class="line">       <span class="keyword">while</span> (!queue.isEmpty())</span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">long</span> levelSum=<span class="number">0</span>;</span><br><span class="line">           <span class="keyword">int</span> levelNum=queue.size();</span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; levelNum; i++)</span><br><span class="line">           &#123;</span><br><span class="line">               TreeNode top = queue.poll();</span><br><span class="line">               levelSum+=top.val;</span><br><span class="line">               <span class="keyword">if</span> (top.left!=<span class="keyword">null</span>)queue.add(top.left);</span><br><span class="line">               <span class="keyword">if</span> (top.right!=<span class="keyword">null</span>)queue.add(top.right);</span><br><span class="line">           &#125;</span><br><span class="line">           averages.add(levelSum/(levelNum*<span class="number">1.0</span>));</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> averages;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="687-最长同值路径"><a href="#687-最长同值路径" class="headerlink" title="687.最长同值路径"></a>687.最长同值路径</h3><blockquote>
+<p>给定一个二叉树，找到最长的路径，这个路径中的每个节点具有相同值。 这条路径可以经过也可以不经过根节点。<br>注意：两个节点之间的路径长度由它们之间的边数表示</p>
+</blockquote>
+<p>也是找2个节点之间的一条路径 这条路径上的所有的节点的值都是相同的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> max=Integer.MIN_VALUE;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestUnivaluePath</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (root==<span class="keyword">null</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">       postOrder(root);</span><br><span class="line">       <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">postOrder</span><span class="params">(TreeNode root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root==<span class="keyword">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> leftArrow=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> rightArrow=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> leftValue=postOrder(root.left);</span><br><span class="line">        <span class="keyword">int</span> rightValue=postOrder(root.right);</span><br><span class="line">        <span class="keyword">if</span> (root.left!=<span class="keyword">null</span>&amp;&amp;root.left.val==root.val)</span><br><span class="line">        &#123;</span><br><span class="line">            leftArrow=(leftValue+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (root.right!=<span class="keyword">null</span>&amp;&amp;root.right.val==root.val)</span><br><span class="line">        &#123;</span><br><span class="line">            rightArrow=(rightValue+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        max=Math.max(max,leftArrow+rightArrow);</span><br><span class="line">        <span class="keyword">return</span> Math.max(leftArrow,rightArrow);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个题和以前的求最长的路径有点像<br>递归回溯每个节点 返回的都是这个节点上  左右单支能够取到的最长路径的长度<br>如果我本节点的值和我的左子树的最长同值路径相等 那就让leftArrow=leftValue+1 也就是得到了现在的左边的最长的同值路径 同理可以得到最长的右边的同值路径  leftArrow 把这俩加起来  同max做比较  更新max的值 最后对于这个节点 返回的还是leftarrow 和rightarrow中较大的那个 因为只能取单边路径</p>
+<h3 id="404-左叶子之和"><a href="#404-左叶子之和" class="headerlink" title="404.左叶子之和"></a>404.左叶子之和</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> sum;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">sumOfLeftLeaves</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        sum=<span class="number">0</span>;</span><br><span class="line">        fun(root,<span class="keyword">false</span>);</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">(TreeNode root,<span class="keyword">boolean</span> isLeft)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root==<span class="keyword">null</span>)<span class="keyword">return</span> ;</span><br><span class="line">        <span class="keyword">if</span> (isLeft&amp;&amp;root.left==<span class="keyword">null</span>&amp;&amp;root.right==<span class="keyword">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sum+=root.val;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        fun(root.left,<span class="keyword">true</span>);</span><br><span class="line">        fun(root.right,<span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="101-对称二叉树"><a href="#101-对称二叉树" class="headerlink" title="101.对称二叉树"></a>101.对称二叉树</h3><p>给定一个二叉树，检查它是否是镜像对称的。<br>例如，二叉树 [1,2,2,3,4,4,3] 是对称的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    1</span><br><span class="line">   &#x2F; \</span><br><span class="line">  2   2</span><br><span class="line"> &#x2F; \ &#x2F; \</span><br><span class="line">3  4 4  3</span><br></pre></td></tr></table></figure>
+
+<p>一棵树满足镜像对称  就是说他的两个子树需要镜像对称<br>两颗树需要镜像对称  条件有三个</p>
+<ul>
+<li>根节点的值相等</li>
+<li>a树的左子树与b树的右子树镜像对称</li>
+<li>a树的右子树与b树的左子树镜像对称</li>
+</ul>
+<p>如此一来就可以写成递归的形式了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public boolean isSymmetric(TreeNode root) &#123;</span><br><span class="line">       if (root&#x3D;&#x3D;null)return true;</span><br><span class="line">       return twoTreeIsMirroring(root.left,root.right);</span><br><span class="line">   &#125;</span><br><span class="line">   public boolean twoTreeIsMirroring(TreeNode t1,TreeNode t2)</span><br><span class="line">   &#123;</span><br><span class="line">       if (t1&#x3D;&#x3D;null&amp;&amp;t2&#x3D;&#x3D;null)return true;</span><br><span class="line">       if (t1&#x3D;&#x3D;null||t2&#x3D;&#x3D;null)return false;</span><br><span class="line">       return t1.val&#x3D;&#x3D;t2.val&amp;&amp;twoTreeIsMirroring(t1.left, t2.right)&amp;&amp;twoTreeIsMirroring(t1.right,t2.left);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="572-另一个树的子树"><a href="#572-另一个树的子树" class="headerlink" title="572.另一个树的子树"></a>572.另一个树的子树</h3><p>暴力解法写了  还没写更好的算法测试<br>暴力法如下<br>遍历第一棵树的每个节点依次判断这个节点为root的子树是否与另外一颗树相等<br>treeEquals就是判断相等的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSubtree</span><span class="params">(TreeNode s, TreeNode t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (t==<span class="keyword">null</span>)<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 如果t等于null 那么t就是任何树的子树  因为 任何一棵树都有null节点</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">if</span> (s==<span class="keyword">null</span>)<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 如果s==null 那么s不可能有子树 除非t也等于null 但是这种情况在前面已经是判断了的</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">return</span> treeEquals(s, t)||isSubtree(s.left,t)||isSubtree(s.right,t);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 判断树是否相等的递归函数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> t1</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> t2</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">treeEquals</span><span class="params">(TreeNode t1,TreeNode t2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (t1==<span class="keyword">null</span>)<span class="keyword">return</span> t2==<span class="keyword">null</span>;  <span class="comment">//同时为null 相等</span></span><br><span class="line">        <span class="keyword">if</span> (t2==<span class="keyword">null</span>)<span class="keyword">return</span> <span class="keyword">false</span>;  <span class="comment">//后面的为Null  就不相等</span></span><br><span class="line">        <span class="keyword">if</span> (t1.val!=t2.val)<span class="keyword">return</span> <span class="keyword">false</span>;  <span class="comment">//两个根节点的值不相等那就是两棵树不相等</span></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 然后递归 左子树和柚子树  只有左右子树同时相等 树才能相等</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">return</span> treeEquals(t1.left,t2.left)&amp;&amp;treeEquals(t1.right,t2.right);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="112-路径总和"><a href="#112-路径总和" class="headerlink" title="112.路径总和"></a>112.路径总和</h3><blockquote>
+<p>给定一个二叉树和一个目标和，判断该树中是否存在根节点到叶子节点的路径，这条路径上所有节点值相加等于目标和。<br>说明: 叶子节点是指没有子节点的节点。<br>示例:<br>给定如下二叉树，以及目标和 sum = 22，</p>
+</blockquote>
+<pre><code>          5
+         / \
+        4   8
+       /   / \
+      11  13  4
+     /  \      \
+    7    2      1
+</code></pre>
+<blockquote>
+<p>返回 true, 因为存在目标和为 22 的根节点到叶子节点的路径 5-&gt;4-&gt;11-&gt;2。</p>
+</blockquote>
+<p>这个题符合递归的思想 要找树的路径上的节点值之和是否等于某个值sum  换个角度来说  就是找 左右子树有的路径上的节点之和是否等于某个sum-root.val<br>递归终点就是  如果当前是叶子节点了 就判断当前的root.val是否等于sum</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasPathSum</span><span class="params">(TreeNode root, <span class="keyword">int</span> sum)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root==<span class="keyword">null</span>)<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (root.left==<span class="keyword">null</span>&amp;&amp;root.right==<span class="keyword">null</span>)<span class="keyword">return</span> sum==root.val;</span><br><span class="line">        <span class="keyword">return</span> (hasPathSum(root.left,sum-root.val)||hasPathSum(root.right,sum-root.val));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>非递归写法 利用广度优先遍历 把每个节点到root节点的节点值之和存起来 两个队列里面11对应 遍历到叶子节点就判断一下  如果满足条件就返回<br>如果遍历完了都没返回 说明不存在 就返回 false</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasPathSum</span><span class="params">(TreeNode root, <span class="keyword">int</span> sum)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root==<span class="keyword">null</span>)<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        Queue&lt;TreeNode&gt; nodeQueue=<span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">        Queue&lt;Integer&gt;pathQueue=<span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">        nodeQueue.add(root);</span><br><span class="line">        pathQueue.add(root.val);</span><br><span class="line">        <span class="keyword">while</span> (!nodeQueue.isEmpty())</span><br><span class="line">        &#123;</span><br><span class="line">            TreeNode cur=nodeQueue.poll();</span><br><span class="line">            <span class="keyword">int</span> curSum=pathQueue.poll();</span><br><span class="line">            <span class="keyword">if</span> (cur.left==<span class="keyword">null</span>&amp;&amp;cur.right==<span class="keyword">null</span>&amp;&amp;curSum==sum)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">if</span>  (cur.left!=<span class="keyword">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                nodeQueue.add(cur.left);</span><br><span class="line">                pathQueue.add(curSum+cur.left.val);</span><br><span class="line">            &#125;</span><br><span class="line">             <span class="keyword">if</span>  (cur.right!=<span class="keyword">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                nodeQueue.add(cur.right);</span><br><span class="line">                pathQueue.add(curSum+cur.right.val);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="617-合并二叉树"><a href="#617-合并二叉树" class="headerlink" title="617.合并二叉树"></a>617.合并二叉树</h3><p>给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一些节点便会重叠。</p>
+<p>你需要将他们合并为一个新的二叉树。合并的规则是如果两个节点重叠，那么将他们的值相加作为节点合并后的新值，否则不为 NULL 的节点将直接作为新二叉树的节点。</p>
+<blockquote>
+<p>示例 1:<br>输入:<br>Tree 1                     Tree 2<br>1                         2<br>/ \                       / \<br>3   2                     1   3<br>/                           \   \<br>5                             4   7<br>输出:<br>合并后的树:<br>3<br>/ <br>4   5<br>/ \   \<br>5   4   7</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> TreeNode <span class="title">mergeTrees</span><span class="params">(TreeNode t1, TreeNode t2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (t1==<span class="keyword">null</span>&amp;&amp;t2==<span class="keyword">null</span>)<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (t1==<span class="keyword">null</span>)<span class="keyword">return</span> t2;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (t2==<span class="keyword">null</span>)<span class="keyword">return</span> t1;</span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">        &#123;</span><br><span class="line">            TreeNode newNode = <span class="keyword">new</span> TreeNode(t1.val + t2.val);</span><br><span class="line">            newNode.left=mergeTrees(t1.left,t2.left);</span><br><span class="line">            newNode.right=mergeTrees(t1.right,t2.right);</span><br><span class="line">            <span class="keyword">return</span> newNode;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="226-翻转二叉树"><a href="#226-翻转二叉树" class="headerlink" title="226.翻转二叉树"></a>226.翻转二叉树</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> TreeNode <span class="title">invertTree</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        invertTreeNode(root);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">invertTreeNode</span><span class="params">(TreeNode root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root==<span class="keyword">null</span>)<span class="keyword">return</span> ;</span><br><span class="line">        invertTree(root.left);</span><br><span class="line">        invertTree(root.right);</span><br><span class="line">        TreeNode temp=root.left;</span><br><span class="line">        root.left=root.right;</span><br><span class="line">        root.right=temp;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>谷歌：我们90％的工程师使用您编写的软件(Homebrew)，但是您却无法在面试时在白板上写出翻转二叉树这道题，这太糟糕了。</p>
+</blockquote>
+<p>刷完这个题说明我已经超越了世界级大牛了</p>
+<h3 id="543-二叉树的直径"><a href="#543-二叉树的直径" class="headerlink" title="543.二叉树的直径"></a>543.二叉树的直径</h3><p>二叉树的直径定义为任意两个节点之间的距离的最大值<br>做法就是递归二叉树  返回左右子树种  单支的长度的较大值+1  就是本节点开始的单支的长度  然后维护一个max值 每次遍历到节点就更新一次max的值  max与left单支的长度+right单支的长度+1 比较  取较大值   其实这个题可以看成是  找所有的节点中左右字数高度和最长的那个节点<br>代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> max;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">diameterOfBinaryTree</span><span class="params">(TreeNode root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root==<span class="keyword">null</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        maxDanZhi(root);</span><br><span class="line">        <span class="keyword">return</span> max-<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxDanZhi</span><span class="params">(TreeNode root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root==<span class="keyword">null</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> left=maxDanZhi(root.left);</span><br><span class="line">        <span class="keyword">int</span> right=maxDanZhi(root.right);</span><br><span class="line">        max=Math.max(max,left+right+<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> Math.max(left,right)+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="110-判断一棵二叉树是否是平衡二叉树"><a href="#110-判断一棵二叉树是否是平衡二叉树" class="headerlink" title="110.判断一棵二叉树是否是平衡二叉树"></a>110.判断一棵二叉树是否是平衡二叉树</h3><p>最优的方法是采用后序遍历 统计左右子树的深度  如果左右子树的深度有一个是-1 说明在子树里面有已经有节点不满足平衡二叉树的定义了  那这棵树也返回-1就可以了  如果  两个深度都不是-1  那就判断他们的差是不是0或者1,如果不是 又不满足 还是返回-1  满足的话  则求出本树的深度 即为max(左子树的深度,右子树的深度)+1;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">postOrder</span><span class="params">(TreeNode root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root==<span class="keyword">null</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> leftDepth=postOrder(root.left);</span><br><span class="line">    <span class="keyword">if</span> (leftDepth==-<span class="number">1</span>)<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> rightDepth=postOrder(root.right);</span><br><span class="line">    <span class="keyword">if</span> (rightDepth==-<span class="number">1</span>)<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> Math.abs(leftDepth-rightDepth)&lt;<span class="number">2</span>?Math.max(leftDepth,rightDepth)+<span class="number">1</span>:-<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isBalanced</span><span class="params">(TreeNode root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> postOrder(root)!=-<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="104-二叉树的最大深度"><a href="#104-二叉树的最大深度" class="headerlink" title="104.二叉树的最大深度"></a>104.二叉树的最大深度</h3><blockquote>
+<p>二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。</p>
+</blockquote>
+<p>二叉树的深度=max(左子树的深度右子树的深度)+1</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (root==<span class="keyword">null</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">return</span> Integer.max(maxDepth(root.left),maxDepth(root.right))+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://129duckflew.github.io/2021/03/21/LeetCode%20%E7%AC%94%E8%AE%B0---%20%E4%BA%8C%E5%8F%89%E6%A0%91/" data-id="ckmjbdb9f000fm4vefmcn0dv7" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/03/21/LeetCode%20%E7%AC%94%E8%AE%B0----DP%E9%97%AE%E9%A2%98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/03/21/DmitriRender30%E5%A4%A9%E8%AF%95%E7%94%A8%E5%88%B0%E6%9C%9F%E5%90%8E%E6%97%A0%E9%99%90%E8%AF%95%E7%94%A8%E6%96%B9%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/03/21/SpringBoot%E9%9B%86%E6%88%90SpringSecurity%E5%B0%8F%E7%BB%93/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/21/LeetCode%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95---%E9%93%BE%E8%A1%A8/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/21/leetcode%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/21/LeetCode%20%E7%AC%94%E8%AE%B0--%E5%88%86%E6%B2%BB%E6%B3%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/21/LeetCode%20%E7%AC%94%E8%AE%B0----DP%E9%97%AE%E9%A2%98/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 duckflew<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
