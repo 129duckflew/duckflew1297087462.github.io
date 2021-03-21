@@ -88,10 +88,19 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/21/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/">希尔排序</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="title-希尔排序"><a href="#title-希尔排序" class="headerlink" title=" title:希尔排序"></a> title:希尔排序</h2><p>希尔排序可以看成优化之后的插入排序  首先想一下插入排序的思想<br>插入排序的思想和选择排序其实有一点像 都是把数据分为2个区域 已经有序的区域和无序的区域   可以先看插入排序的代码</p>
+        <p>希尔排序可以看成优化之后的插入排序  首先想一下插入排序的思想<br>插入排序的思想和选择排序其实有一点像 都是把数据分为2个区域 已经有序的区域和无序的区域   可以先看插入排序的代码</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertSort</span><span class="params">(<span class="keyword">int</span> [] arr)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> j;</span><br><span class="line">       <span class="keyword">int</span> wanToInsert;<span class="comment">//想要插入的元素 从1开始</span></span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arr.length; i++)</span><br><span class="line">       &#123;</span><br><span class="line">           wanToInsert=arr[i];</span><br><span class="line">           j=i-<span class="number">1</span>;</span><br><span class="line">          <span class="comment">//从i-1开始  往前比较 如果当前想要插入的比j位置的元素小 那就把j位置的元素往后挪1位  因为已经确定是当前的0到j是有序的 所以不会出现覆盖使得数据丢失的情况 </span></span><br><span class="line">           <span class="keyword">while</span> (j&gt;=<span class="number">0</span>&amp;&amp;wanToInsert&lt;arr[j])</span><br><span class="line">           &#123;</span><br><span class="line">               arr[j+<span class="number">1</span>]=arr[j];</span><br><span class="line">               j--;</span><br><span class="line">           &#125;</span><br><span class="line">           arr[j+<span class="number">1</span>]=wanToInsert;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
 <p>第一个元素组成的序列已经可以看成是有序的了  所以只需把后面的len-1个元素插入到对应位置就可了  所以是for 1 到 &lt;len 对于每个想要插入的元素 依次往前检测  （以从小到大的排序规则举例子） 我当前要插入的元素如果比你前面有序区的小 说明我应该在你前面 所以该元素需要往后移动 所以就有了这个循环</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (j&gt;=<span class="number">0</span>&amp;&amp;wanToInsert&lt;arr[j])</span><br><span class="line">           &#123;</span><br><span class="line">               arr[j+<span class="number">1</span>]=arr[j];</span><br><span class="line">               j--;</span><br><span class="line">           &#125;</span><br></pre></td></tr></table></figure>
@@ -102,7 +111,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://129duckflew.github.io/2021/03/21/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" data-id="ckmjbdb96000am4ve417keobj" data-title="" class="article-share-link">Share</a>
+      <a data-url="https://129duckflew.github.io/2021/03/21/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" data-id="ckmjbdb96000am4ve417keobj" data-title="希尔排序" class="article-share-link">Share</a>
       
       
       
@@ -124,10 +133,19 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/21/%E5%87%A0%E4%B8%AA%E5%A5%BD%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/">几个好用的命令行工具</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="title-几个好用的命令行工具"><a href="#title-几个好用的命令行工具" class="headerlink" title=" title:几个好用的命令行工具"></a> title:几个好用的命令行工具</h2><h1 id="几个好用的命令行工具"><a href="#几个好用的命令行工具" class="headerlink" title="几个好用的命令行工具"></a>几个好用的命令行工具</h1><h3 id="ffmpeg"><a href="#ffmpeg" class="headerlink" title="ffmpeg"></a>ffmpeg</h3><p>格式转换工具</p>
+        <h1 id="几个好用的命令行工具"><a href="#几个好用的命令行工具" class="headerlink" title="几个好用的命令行工具"></a>几个好用的命令行工具</h1><h3 id="ffmpeg"><a href="#ffmpeg" class="headerlink" title="ffmpeg"></a>ffmpeg</h3><p>格式转换工具</p>
 <p>例如把桌面上的input.mp4转成avi格式 只需要输入</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i input.mp4 output.avi</span><br></pre></td></tr></table></figure>
 
@@ -174,7 +192,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://129duckflew.github.io/2021/03/21/%E5%87%A0%E4%B8%AA%E5%A5%BD%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/" data-id="ckmjbdb940007m4ve0y545wwo" data-title="" class="article-share-link">Share</a>
+      <a data-url="https://129duckflew.github.io/2021/03/21/%E5%87%A0%E4%B8%AA%E5%A5%BD%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/" data-id="ckmjbdb940007m4ve0y545wwo" data-title="几个好用的命令行工具" class="article-share-link">Share</a>
       
       
       
@@ -196,17 +214,26 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/21/%E5%87%A0%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">几大排序算法总结</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="title-几大排序算法总结"><a href="#title-几大排序算法总结" class="headerlink" title=" title:几大排序算法总结"></a> title:几大排序算法总结</h2><blockquote>
+        <blockquote>
 <p>堆排序、快速排序、希尔排序、直接选择排序是不稳定的排序算法，而基数排序、冒泡排序、直接插入排序、折半插入排序、归并排序是稳定的排序算法。</p>
 </blockquote>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://129duckflew.github.io/2021/03/21/%E5%87%A0%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" data-id="ckmjbdb950008m4vefyeqfpxe" data-title="" class="article-share-link">Share</a>
+      <a data-url="https://129duckflew.github.io/2021/03/21/%E5%87%A0%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" data-id="ckmjbdb950008m4vefyeqfpxe" data-title="几大排序算法总结" class="article-share-link">Share</a>
       
       
       
@@ -228,10 +255,19 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/21/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%9A%84%E5%BB%BA%E7%AB%8B%E4%BB%A5%E5%8F%8A%E6%B1%82WPL%20%E4%BB%A5%E5%8F%8A%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81/">哈夫曼树的建立以及求WPL 以及哈夫曼编码</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="title-哈夫曼树的建立以及求WPL-以及哈夫曼编码"><a href="#title-哈夫曼树的建立以及求WPL-以及哈夫曼编码" class="headerlink" title=" title:哈夫曼树的建立以及求WPL 以及哈夫曼编码"></a> title:哈夫曼树的建立以及求WPL 以及哈夫曼编码</h2><h2 id="一、定义"><a href="#一、定义" class="headerlink" title="一、定义"></a>一、定义</h2><p>一些定义：</p>
+        <h2 id="一、定义"><a href="#一、定义" class="headerlink" title="一、定义"></a>一、定义</h2><p>一些定义：</p>
 <ul>
 <li>节点之间的路径长度：在树中从一个结点到另一个结点所经历的分支，构成了这两个结点间的路径上的经过的分支数称为它的路径长度</li>
 <li>树的路径长度：从树的根节点到树中每一结点的路径长度之和。在结点数目相同的二叉树中，完全二叉树的路径长度最短。</li>
@@ -277,7 +313,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://129duckflew.github.io/2021/03/21/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%9A%84%E5%BB%BA%E7%AB%8B%E4%BB%A5%E5%8F%8A%E6%B1%82WPL%20%E4%BB%A5%E5%8F%8A%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81/" data-id="ckmjbdb960009m4ve963hg939" data-title="" class="article-share-link">Share</a>
+      <a data-url="https://129duckflew.github.io/2021/03/21/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%9A%84%E5%BB%BA%E7%AB%8B%E4%BB%A5%E5%8F%8A%E6%B1%82WPL%20%E4%BB%A5%E5%8F%8A%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81/" data-id="ckmjbdb960009m4ve963hg939" data-title="哈夫曼树的建立以及求WPL 以及哈夫曼编码" class="article-share-link">Share</a>
       
       
       
@@ -299,10 +335,19 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/21/%E5%B9%BF%E4%B9%89%E8%A1%A8/">广义表</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="title-广义表"><a href="#title-广义表" class="headerlink" title=" title:广义表"></a> title:广义表</h2><p>广义表的两个操作容易弄错 在这里记录一下</p>
+        <p>广义表的两个操作容易弄错 在这里记录一下</p>
 <p>首先明确定义  广义表分两种  一种是普通表 一种是原子表  </p>
 <ul>
 <li>普通表结构为 一个表头  一个表尾  <pre><code>   - 表尾一定指向另一张表 这张表包含一个元素  这个元素可以是原子 也可以是表 这就是为什么tail操作要加括号的原因  总之取到的一定是一张表  
@@ -322,7 +367,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://129duckflew.github.io/2021/03/21/%E5%B9%BF%E4%B9%89%E8%A1%A8/" data-id="ckmjbdb98000cm4vegd1t9top" data-title="" class="article-share-link">Share</a>
+      <a data-url="https://129duckflew.github.io/2021/03/21/%E5%B9%BF%E4%B9%89%E8%A1%A8/" data-id="ckmjbdb98000cm4vegd1t9top" data-title="广义表" class="article-share-link">Share</a>
       
       
       
@@ -344,10 +389,19 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/21/%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91%E7%9A%84%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/">二叉排序树的增删改查</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="title-二叉排序树的增删改查"><a href="#title-二叉排序树的增删改查" class="headerlink" title=" title:二叉排序树的增删改查"></a> title:二叉排序树的增删改查</h2><p>插入 查找 修改没什么好说的比较基础  重点看一下删除  </p>
+        <p>插入 查找 修改没什么好说的比较基础  重点看一下删除  </p>
 <h2 id="删除操作详解"><a href="#删除操作详解" class="headerlink" title="删除操作详解"></a>删除操作详解</h2><p>首先明确一个点  删除一个节点 一般都是要用到它的父指针 把父指针移动到别的地方 这里我定义的函数为deleteNode(BSTNode*cur) 通常是让<br>parent.left  or parent.right=deleteNodeBST(….对应的孩子)<br>对于最初的根 同理<code>this-&gt;root=deleteNodeIterator(data, root);</code><br>删除的时候我们并不是修改指针的指向  而是把需要删除的值用他的前驱或者后继节点的值覆盖掉 然后把他的前驱或者后继给删除掉<br>删除的代码拿出来分析一下</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BSTNode *<span class="title">BSTTree::deleteNodeIterator</span><span class="params">(<span class="keyword">char</span> data, BSTNode*cur)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!cur)<span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">if</span> (data&gt;cur-&gt;data)cur-&gt;rightChild= deleteNodeIterator(data, cur-&gt;rightChild);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (data&lt;cur-&gt;data)cur-&gt;leftChild=deleteNodeIterator(data,cur-&gt;leftChild);</span><br></pre></td></tr></table></figure>
 <p>这里 data大 就要删除右子树的在里面找 小就要删除左子树然后会返回一个合适的节点来代替当前cur的right 或者是left 也有可能什么都不改变 就是data在树里面找不到对应的节点的情况的时候<br>下面是找到了 也就是说当前的节点就是我要删除的节点<br>共有如下三个情况</p>
@@ -371,7 +425,7 @@ BSTTree类<figure class="highlight c++"><table><tr><td class="gutter"><pre><span
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://129duckflew.github.io/2021/03/21/%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91%E7%9A%84%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" data-id="ckmjbdb940006m4vehr0b7375" data-title="" class="article-share-link">Share</a>
+      <a data-url="https://129duckflew.github.io/2021/03/21/%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91%E7%9A%84%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" data-id="ckmjbdb940006m4vehr0b7375" data-title="二叉排序树的增删改查" class="article-share-link">Share</a>
       
       
       
@@ -393,10 +447,19 @@ BSTTree类<figure class="highlight c++"><table><tr><td class="gutter"><pre><span
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/21/%E5%A0%86%E6%8E%92%E5%BA%8F%20JAVA%E5%AE%9E%E7%8E%B0/">堆排序 JAVA实现</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="title-堆排序-JAVA实现"><a href="#title-堆排序-JAVA实现" class="headerlink" title=" title:堆排序 JAVA实现"></a> title:堆排序 JAVA实现</h2><p>堆排序的思想是  先把需要排序的数组构造成一个大根堆或者小根堆 然后用选择排序的思想 每一次都从堆里面选取最小的元素放到已经有序的序列中去  交换完成后对  被取走根的堆重建   其中在建立堆和调整堆的时候都需要用到一个方法来调整 这里我命名为一个adjustHeal(arr ,index,endIndex)<br>其中index代表的是需要调整的节点的位置  endindex是指本次需要调整的结束的位置（结束位置有效）代码如下</p>
+        <p>堆排序的思想是  先把需要排序的数组构造成一个大根堆或者小根堆 然后用选择排序的思想 每一次都从堆里面选取最小的元素放到已经有序的序列中去  交换完成后对  被取走根的堆重建   其中在建立堆和调整堆的时候都需要用到一个方法来调整 这里我命名为一个adjustHeal(arr ,index,endIndex)<br>其中index代表的是需要调整的节点的位置  endindex是指本次需要调整的结束的位置（结束位置有效）代码如下</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">adjustHeal</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> index,<span class="keyword">int</span> endIndex)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> adjustIndex=index;</span><br><span class="line">       <span class="keyword">int</span> max=adjustIndex*<span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line">       <span class="keyword">int</span> temp;</span><br><span class="line">       <span class="keyword">while</span> (max&lt;=endIndex)</span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">if</span> (max+<span class="number">1</span>&lt;=endIndex&amp;&amp;arr[max]&lt;arr[max+<span class="number">1</span>])<span class="comment">//左孩子小于右孩子</span></span><br><span class="line">               max++;</span><br><span class="line">           <span class="keyword">if</span> (arr[adjustIndex]&gt;arr[max])<span class="keyword">break</span>;</span><br><span class="line">           <span class="keyword">else</span></span><br><span class="line">           &#123;</span><br><span class="line">               temp=arr[adjustIndex];</span><br><span class="line">               arr[adjustIndex]=arr[max];</span><br><span class="line">               arr[max]=temp;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">/**</span></span><br><span class="line"><span class="comment">            * 更新 需要调整的节点的位置  以及孩子的位置  准备进入下一轮调整</span></span><br><span class="line"><span class="comment">            */</span></span><br><span class="line">           adjustIndex=max;</span><br><span class="line">           max=adjustIndex*<span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <p>首先是定义一个adjustIndex 表示当前已经进行到的  需要调整的节点位置<br>max 就是左孩子或者是右孩子 具体是那个  通过下面的判断来确定  如果是大根堆 那就取最大  反之取小的那个<br>此时如果当前的需要调整的节点已经满足最大堆的特点也就是<br> if (arr[adjustIndex]&gt;arr[max])break;<br>了 那就停止<br>否则的话交换  需要调整的节点和较大孩子节点的值 构造大根堆<br>然后给adjustIndex和max重新赋值 从而进入下一轮的调整<br>这个调整会一直到当前已经满足大根堆的特点或者  到了叶子节点才结束</p>
 <p>堆的调整方法写完了  就可以开始写排序函数了  ,排序函数其实没有什么 </p>
@@ -410,7 +473,7 @@ BSTTree类<figure class="highlight c++"><table><tr><td class="gutter"><pre><span
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://129duckflew.github.io/2021/03/21/%E5%A0%86%E6%8E%92%E5%BA%8F%20JAVA%E5%AE%9E%E7%8E%B0/" data-id="ckmjbdb98000bm4ve4ug0h37o" data-title="" class="article-share-link">Share</a>
+      <a data-url="https://129duckflew.github.io/2021/03/21/%E5%A0%86%E6%8E%92%E5%BA%8F%20JAVA%E5%AE%9E%E7%8E%B0/" data-id="ckmjbdb98000bm4ve4ug0h37o" data-title="堆排序 JAVA实现" class="article-share-link">Share</a>
       
       
       
@@ -432,10 +495,19 @@ BSTTree类<figure class="highlight c++"><table><tr><td class="gutter"><pre><span
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/21/%E5%BD%BB%E5%BA%95%E5%85%B3%E9%97%ADwindows10%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0/">彻底关闭windows10自动更新</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="title-彻底关闭windows10自动更新"><a href="#title-彻底关闭windows10自动更新" class="headerlink" title=" title:彻底关闭windows10自动更新"></a> title:彻底关闭windows10自动更新</h2><h1 id="彻底关闭windows10自动更新"><a href="#彻底关闭windows10自动更新" class="headerlink" title="彻底关闭windows10自动更新"></a>彻底关闭windows10自动更新</h1><p>网上大部分关闭自动更新的方法是通过关闭windows update服务，可是没过几天，发现系统又在提示更新，问题并没有彻底解决。</p>
+        <h1 id="彻底关闭windows10自动更新"><a href="#彻底关闭windows10自动更新" class="headerlink" title="彻底关闭windows10自动更新"></a>彻底关闭windows10自动更新</h1><p>网上大部分关闭自动更新的方法是通过关闭windows update服务，可是没过几天，发现系统又在提示更新，问题并没有彻底解决。</p>
 <p>今天就讲下如何彻底关闭自动更新，此处需要说明一下，家庭版的windows10 系统，果断换系统吧，有许多功能是被阉割的。</p>
 <p>废话少说，开始吧</p>
 <h3 id="1-关闭windows-update服务"><a href="#1-关闭windows-update服务" class="headerlink" title="1.关闭windows update服务"></a>1.关闭windows update服务</h3><p>右键我的电脑→“管理”→“服务”→“windows update”</p>
@@ -457,7 +529,7 @@ BSTTree类<figure class="highlight c++"><table><tr><td class="gutter"><pre><span
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://129duckflew.github.io/2021/03/21/%E5%BD%BB%E5%BA%95%E5%85%B3%E9%97%ADwindows10%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0/" data-id="ckmjbdb9e000dm4ve65srb7zq" data-title="" class="article-share-link">Share</a>
+      <a data-url="https://129duckflew.github.io/2021/03/21/%E5%BD%BB%E5%BA%95%E5%85%B3%E9%97%ADwindows10%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0/" data-id="ckmjbdb9e000dm4ve65srb7zq" data-title="彻底关闭windows10自动更新" class="article-share-link">Share</a>
       
       
       
@@ -479,10 +551,19 @@ BSTTree类<figure class="highlight c++"><table><tr><td class="gutter"><pre><span
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/21/SpringBoot%E9%9B%86%E6%88%90SpringSecurity%E5%B0%8F%E7%BB%93/">SpringBoot集成SpringSecurity小结</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="title-SpringBoot集成SpringSecurity小结"><a href="#title-SpringBoot集成SpringSecurity小结" class="headerlink" title=" title:SpringBoot集成SpringSecurity小结"></a> title:SpringBoot集成SpringSecurity小结</h2><h1 id="SpringBoot集成SpringSecurity小结"><a href="#SpringBoot集成SpringSecurity小结" class="headerlink" title="SpringBoot集成SpringSecurity小结"></a>SpringBoot集成SpringSecurity小结</h1><h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-security<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        <h1 id="SpringBoot集成SpringSecurity小结"><a href="#SpringBoot集成SpringSecurity小结" class="headerlink" title="SpringBoot集成SpringSecurity小结"></a>SpringBoot集成SpringSecurity小结</h1><h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-security<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p><em>SpringSecurity最重要的两个  概念就是认证和授权  下面分开来写</em></p>
 <h3 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h3><p>认证主要解决的问题就是 识别出用户 解决“他是谁“ 的问题 在springSecurity的实现逻辑如下</p>
@@ -589,7 +670,7 @@ BSTTree类<figure class="highlight c++"><table><tr><td class="gutter"><pre><span
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://129duckflew.github.io/2021/03/21/SpringBoot%E9%9B%86%E6%88%90SpringSecurity%E5%B0%8F%E7%BB%93/" data-id="ckmjbdb930005m4ve59tv7r3z" data-title="" class="article-share-link">Share</a>
+      <a data-url="https://129duckflew.github.io/2021/03/21/SpringBoot%E9%9B%86%E6%88%90SpringSecurity%E5%B0%8F%E7%BB%93/" data-id="ckmjbdb930005m4ve59tv7r3z" data-title="SpringBoot集成SpringSecurity小结" class="article-share-link">Share</a>
       
       
       
@@ -611,10 +692,19 @@ BSTTree类<figure class="highlight c++"><table><tr><td class="gutter"><pre><span
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/21/LeetCode%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95---%E9%93%BE%E8%A1%A8/">LeetCode刷题记录---链表</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="title-LeetCode刷题记录—链表"><a href="#title-LeetCode刷题记录—链表" class="headerlink" title=" title:LeetCode刷题记录—链表"></a> title:LeetCode刷题记录—链表</h2><h1 id="LeetCode刷题记录—链表"><a href="#LeetCode刷题记录—链表" class="headerlink" title="LeetCode刷题记录—链表"></a>LeetCode刷题记录—链表</h1><h3 id="160-链表有关的几个题目"><a href="#160-链表有关的几个题目" class="headerlink" title="160.链表有关的几个题目"></a>160.链表有关的几个题目</h3><blockquote>
+        <h1 id="LeetCode刷题记录—链表"><a href="#LeetCode刷题记录—链表" class="headerlink" title="LeetCode刷题记录—链表"></a>LeetCode刷题记录—链表</h1><h3 id="160-链表有关的几个题目"><a href="#160-链表有关的几个题目" class="headerlink" title="160.链表有关的几个题目"></a>160.链表有关的几个题目</h3><blockquote>
 <p>给出如下链表类</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    ListNode next;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ListNode</span><span class="params">(<span class="keyword">int</span> val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">        next=<span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -671,7 +761,7 @@ BSTTree类<figure class="highlight c++"><table><tr><td class="gutter"><pre><span
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://129duckflew.github.io/2021/03/21/LeetCode%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95---%E9%93%BE%E8%A1%A8/" data-id="ckmjbdb920003m4veciym4scg" data-title="" class="article-share-link">Share</a>
+      <a data-url="https://129duckflew.github.io/2021/03/21/LeetCode%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95---%E9%93%BE%E8%A1%A8/" data-id="ckmjbdb920003m4veciym4scg" data-title="LeetCode刷题记录---链表" class="article-share-link">Share</a>
       
       
       
@@ -719,23 +809,23 @@ BSTTree类<figure class="highlight c++"><table><tr><td class="gutter"><pre><span
       <ul>
         
           <li>
-            <a href="/2021/03/21/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/">(no title)</a>
+            <a href="/2021/03/21/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/">希尔排序</a>
           </li>
         
           <li>
-            <a href="/2021/03/21/%E5%87%A0%E4%B8%AA%E5%A5%BD%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/">(no title)</a>
+            <a href="/2021/03/21/%E5%87%A0%E4%B8%AA%E5%A5%BD%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/">几个好用的命令行工具</a>
           </li>
         
           <li>
-            <a href="/2021/03/21/%E5%87%A0%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">(no title)</a>
+            <a href="/2021/03/21/%E5%87%A0%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">几大排序算法总结</a>
           </li>
         
           <li>
-            <a href="/2021/03/21/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%9A%84%E5%BB%BA%E7%AB%8B%E4%BB%A5%E5%8F%8A%E6%B1%82WPL%20%E4%BB%A5%E5%8F%8A%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81/">(no title)</a>
+            <a href="/2021/03/21/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%9A%84%E5%BB%BA%E7%AB%8B%E4%BB%A5%E5%8F%8A%E6%B1%82WPL%20%E4%BB%A5%E5%8F%8A%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81/">哈夫曼树的建立以及求WPL 以及哈夫曼编码</a>
           </li>
         
           <li>
-            <a href="/2021/03/21/%E5%B9%BF%E4%B9%89%E8%A1%A8/">(no title)</a>
+            <a href="/2021/03/21/%E5%B9%BF%E4%B9%89%E8%A1%A8/">广义表</a>
           </li>
         
       </ul>

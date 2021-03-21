@@ -4,21 +4,21 @@
   <meta charset="utf-8">
   
   
-  <title>鸭子飞了</title>
+  <title>哈夫曼树的建立以及求WPL 以及哈夫曼编码 | 鸭子飞了</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="title:哈夫曼树的建立以及求WPL 以及哈夫曼编码一、定义一些定义：  节点之间的路径长度：在树中从一个结点到另一个结点所经历的分支，构成了这两个结点间的路径上的经过的分支数称为它的路径长度 树的路径长度：从树的根节点到树中每一结点的路径长度之和。在结点数目相同的二叉树中，完全二叉树的路径长度最短。 结点的权：在一些应用中，赋予树中结点的一个有某种意义的实数。 结点的带权路径长度：结点到树">
+  <meta name="description" content="一、定义一些定义：  节点之间的路径长度：在树中从一个结点到另一个结点所经历的分支，构成了这两个结点间的路径上的经过的分支数称为它的路径长度 树的路径长度：从树的根节点到树中每一结点的路径长度之和。在结点数目相同的二叉树中，完全二叉树的路径长度最短。 结点的权：在一些应用中，赋予树中结点的一个有某种意义的实数。 结点的带权路径长度：结点到树根之间的路径长度与该结点上权的乘积。 树的带权路径长度(W">
 <meta property="og:type" content="article">
-<meta property="og:title" content="鸭子飞了">
+<meta property="og:title" content="哈夫曼树的建立以及求WPL 以及哈夫曼编码">
 <meta property="og:url" content="https://129duckflew.github.io/2021/03/21/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%9A%84%E5%BB%BA%E7%AB%8B%E4%BB%A5%E5%8F%8A%E6%B1%82WPL%20%E4%BB%A5%E5%8F%8A%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81/index.html">
 <meta property="og:site_name" content="鸭子飞了">
-<meta property="og:description" content="title:哈夫曼树的建立以及求WPL 以及哈夫曼编码一、定义一些定义：  节点之间的路径长度：在树中从一个结点到另一个结点所经历的分支，构成了这两个结点间的路径上的经过的分支数称为它的路径长度 树的路径长度：从树的根节点到树中每一结点的路径长度之和。在结点数目相同的二叉树中，完全二叉树的路径长度最短。 结点的权：在一些应用中，赋予树中结点的一个有某种意义的实数。 结点的带权路径长度：结点到树">
+<meta property="og:description" content="一、定义一些定义：  节点之间的路径长度：在树中从一个结点到另一个结点所经历的分支，构成了这两个结点间的路径上的经过的分支数称为它的路径长度 树的路径长度：从树的根节点到树中每一结点的路径长度之和。在结点数目相同的二叉树中，完全二叉树的路径长度最短。 结点的权：在一些应用中，赋予树中结点的一个有某种意义的实数。 结点的带权路径长度：结点到树根之间的路径长度与该结点上权的乘积。 树的带权路径长度(W">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://image.duckflew.cn/img/blog_inner_image20201120014930.jpeg">
 <meta property="og:image" content="https://image.duckflew.cn/img/blog_inner_image20201120015039.jpeg">
 <meta property="og:image" content="https://image.duckflew.cn/img/blog_inner_image20201120015229.jpeg">
 <meta property="og:image" content="https://image.duckflew.cn/img/blog_inner_image20201120015800.jpeg">
 <meta property="article:published_time" content="2021-03-21T15:31:56.992Z">
-<meta property="article:modified_time" content="2021-03-21T15:35:06.474Z">
+<meta property="article:modified_time" content="2021-03-21T15:37:46.653Z">
 <meta property="article:author" content="duckflew">
 <meta property="article:tag" content="duckflew">
 <meta name="twitter:card" content="summary">
@@ -93,10 +93,19 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      哈夫曼树的建立以及求WPL 以及哈夫曼编码
+    </h1>
+  
+
+      </header>
+    
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="title-哈夫曼树的建立以及求WPL-以及哈夫曼编码"><a href="#title-哈夫曼树的建立以及求WPL-以及哈夫曼编码" class="headerlink" title=" title:哈夫曼树的建立以及求WPL 以及哈夫曼编码"></a> title:哈夫曼树的建立以及求WPL 以及哈夫曼编码</h2><h2 id="一、定义"><a href="#一、定义" class="headerlink" title="一、定义"></a>一、定义</h2><p>一些定义：</p>
+        <h2 id="一、定义"><a href="#一、定义" class="headerlink" title="一、定义"></a>一、定义</h2><p>一些定义：</p>
 <ul>
 <li>节点之间的路径长度：在树中从一个结点到另一个结点所经历的分支，构成了这两个结点间的路径上的经过的分支数称为它的路径长度</li>
 <li>树的路径长度：从树的根节点到树中每一结点的路径长度之和。在结点数目相同的二叉树中，完全二叉树的路径长度最短。</li>
@@ -142,7 +151,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://129duckflew.github.io/2021/03/21/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%9A%84%E5%BB%BA%E7%AB%8B%E4%BB%A5%E5%8F%8A%E6%B1%82WPL%20%E4%BB%A5%E5%8F%8A%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81/" data-id="ckmjbdb960009m4ve963hg939" data-title="" class="article-share-link">Share</a>
+      <a data-url="https://129duckflew.github.io/2021/03/21/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%9A%84%E5%BB%BA%E7%AB%8B%E4%BB%A5%E5%8F%8A%E6%B1%82WPL%20%E4%BB%A5%E5%8F%8A%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81/" data-id="ckmjbdb960009m4ve963hg939" data-title="哈夫曼树的建立以及求WPL 以及哈夫曼编码" class="article-share-link">Share</a>
       
       
       
@@ -156,7 +165,7 @@
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          几大排序算法总结
         
       </div>
     </a>
@@ -164,7 +173,7 @@
   
     <a href="/2021/03/21/%E5%B9%BF%E4%B9%89%E8%A1%A8/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title"></div>
+      <div class="article-nav-title">广义表</div>
     </a>
   
 </nav>
@@ -202,23 +211,23 @@
       <ul>
         
           <li>
-            <a href="/2021/03/21/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/">(no title)</a>
+            <a href="/2021/03/21/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/">希尔排序</a>
           </li>
         
           <li>
-            <a href="/2021/03/21/%E5%87%A0%E4%B8%AA%E5%A5%BD%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/">(no title)</a>
+            <a href="/2021/03/21/%E5%87%A0%E4%B8%AA%E5%A5%BD%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/">几个好用的命令行工具</a>
           </li>
         
           <li>
-            <a href="/2021/03/21/%E5%87%A0%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">(no title)</a>
+            <a href="/2021/03/21/%E5%87%A0%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">几大排序算法总结</a>
           </li>
         
           <li>
-            <a href="/2021/03/21/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%9A%84%E5%BB%BA%E7%AB%8B%E4%BB%A5%E5%8F%8A%E6%B1%82WPL%20%E4%BB%A5%E5%8F%8A%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81/">(no title)</a>
+            <a href="/2021/03/21/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%9A%84%E5%BB%BA%E7%AB%8B%E4%BB%A5%E5%8F%8A%E6%B1%82WPL%20%E4%BB%A5%E5%8F%8A%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81/">哈夫曼树的建立以及求WPL 以及哈夫曼编码</a>
           </li>
         
           <li>
-            <a href="/2021/03/21/%E5%B9%BF%E4%B9%89%E8%A1%A8/">(no title)</a>
+            <a href="/2021/03/21/%E5%B9%BF%E4%B9%89%E8%A1%A8/">广义表</a>
           </li>
         
       </ul>
